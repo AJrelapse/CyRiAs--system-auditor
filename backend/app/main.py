@@ -9,6 +9,9 @@ from app.modules.log_collection.router import (
 from app.modules.configuration.router import (
     router as configuration_router,
 )
+from app.modules.cloud_synchronization.router import (
+    router as cloud_synchronization_router,
+)
 
 from app.db.database import Base, engine
 from app.db import models
@@ -31,6 +34,10 @@ app.include_router(log_collection_router)
 app.include_router(asset_discovery_router)
 app.include_router(log_collection_router)
 app.include_router(configuration_router)
+app.include_router(asset_discovery_router)
+app.include_router(log_collection_router)
+app.include_router(configuration_router)
+app.include_router(cloud_synchronization_router)
 
 @app.get("/")
 def root():

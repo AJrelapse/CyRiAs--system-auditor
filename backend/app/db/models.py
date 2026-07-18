@@ -259,3 +259,103 @@ class AssetConfigurationDB(Base):
         default=datetime.utcnow,
         onupdate=datetime.utcnow,
     )
+
+class CloudResourceDB(Base):
+
+    __tablename__ = "cloud_resources"
+
+    resource_id: Mapped[str] = mapped_column(
+        String(150),
+        primary_key=True,
+    )
+
+    asset_id: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+        index=True,
+    )
+
+    name: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+    )
+
+    resource_type: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    provider: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    region: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    status: Mapped[str] = mapped_column(
+        String(50),
+        default="active",
+    )
+
+    configuration: Mapped[str] = mapped_column(
+        String,
+        default="{}",
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+    )
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+    )
+
+
+class CloudDeltaEventDB(Base):
+
+    __tablename__ = "cloud_delta_events"
+
+    event_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+        default=lambda: str(uuid4()),
+    )
+
+    resource_id: Mapped[str] = mapped_column(
+        String(150),
+        nullable=False,
+        index=True,
+    )
+
+    change_type: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+        index=True,
+    )
+
+    changed_fields: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    previous_state: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    current_state: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        index=True,
+    )
