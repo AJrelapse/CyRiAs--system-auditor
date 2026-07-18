@@ -359,3 +359,117 @@ class CloudDeltaEventDB(Base):
         default=datetime.utcnow,
         index=True,
     )
+
+class IdentityDB(Base):
+
+    __tablename__ = "identities"
+
+    identity_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+    )
+
+    name: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+    )
+
+    identity_type: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    email: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    department: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    status: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+        default="active",
+    )
+
+    groups: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    roles: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    direct_permissions: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    effective_permissions: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    accessible_assets: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+    )
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+    )
+
+
+class IdentityDeltaEventDB(Base):
+
+    __tablename__ = "identity_delta_events"
+
+    event_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+        default=lambda: str(uuid4()),
+    )
+
+    identity_id: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+        index=True,
+    )
+
+    change_type: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+    )
+
+    changed_fields: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    previous_state: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    current_state: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        index=True,
+    )
