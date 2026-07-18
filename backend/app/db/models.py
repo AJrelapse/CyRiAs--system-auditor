@@ -189,3 +189,73 @@ class SecurityEventDB(Base):
         DateTime,
         default=datetime.utcnow,
     )
+
+class AssetConfigurationDB(Base):
+
+    __tablename__ = "asset_configurations"
+
+    asset_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+    )
+
+    hostname: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    operating_system: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    os_version: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    patch_level: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    last_patch_date: Mapped[datetime | None] = mapped_column(
+        DateTime,
+        nullable=True,
+    )
+
+    open_ports: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    installed_software: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    firewall_rules: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    security_controls: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    configuration_metadata: Mapped[str] = mapped_column(
+        String,
+        default="{}",
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+    )
+
+    updated_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        onupdate=datetime.utcnow,
+    )
