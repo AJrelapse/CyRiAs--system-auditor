@@ -3,6 +3,10 @@ from fastapi import FastAPI
 from app.modules.asset_discovery.router import (
     router as asset_discovery_router,
 )
+from app.modules.log_collection.router import (
+    router as log_collection_router,
+)
+
 from app.db.database import Base, engine
 from app.db import models
 
@@ -19,7 +23,8 @@ app = FastAPI(
 
 
 app.include_router(asset_discovery_router)
-
+app.include_router(asset_discovery_router)
+app.include_router(log_collection_router)
 
 @app.get("/")
 def root():
@@ -34,3 +39,4 @@ def health_check():
     return {
         "status": "healthy",
     }
+

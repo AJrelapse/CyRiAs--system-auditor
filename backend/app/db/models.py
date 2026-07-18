@@ -107,3 +107,85 @@ class AssetChangeEventDB(Base):
         DateTime,
         default=datetime.utcnow,
     )
+
+class SecurityEventDB(Base):
+
+    __tablename__ = "security_events"
+
+    event_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+    )
+
+    timestamp: Mapped[datetime] = mapped_column(
+        DateTime,
+        nullable=False,
+        index=True,
+    )
+
+    source_type: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    source_name: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+    )
+
+    asset_id: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+        index=True,
+    )
+
+    category: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+        index=True,
+    )
+
+    event_type: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+    )
+
+    severity: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+        index=True,
+    )
+
+    message: Mapped[str] = mapped_column(
+        String,
+        nullable=False,
+    )
+
+    source_ip: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    destination_ip: Mapped[str | None] = mapped_column(
+        String(100),
+        nullable=True,
+    )
+
+    username: Mapped[str | None] = mapped_column(
+        String(255),
+        nullable=True,
+    )
+
+    successful: Mapped[bool | None] = mapped_column(
+        nullable=True,
+    )
+
+    raw_data: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    ingested_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+    )
