@@ -94,3 +94,8 @@ temp/
 # Jupyter Notebook
 # ==============================
 .ipynb_checkpoints/
+
+venv/
+.env
+__pycache__/
+*.pyc
