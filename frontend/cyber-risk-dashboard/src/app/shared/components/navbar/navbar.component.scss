@@ -1,0 +1,368 @@
+.navbar {
+
+  position: fixed;
+
+  top: 20px;
+  left: 325px;
+  right: 20px;
+
+  height: 82px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 0 26px;
+
+  border-radius: 28px;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255,255,255,.10),
+      rgba(255,255,255,.05)
+    );
+
+  backdrop-filter: blur(30px);
+  -webkit-backdrop-filter: blur(30px);
+
+  border: 1px solid rgba(255,255,255,.12);
+
+  box-shadow:
+    0 20px 45px rgba(0,0,0,.28),
+    inset 0 1px 0 rgba(255,255,255,.08);
+
+  z-index: 900;
+
+}
+
+/* ========================= */
+
+.left {
+
+  display: flex;
+  align-items: center;
+
+}
+
+.title-group {
+
+  display: flex;
+  flex-direction: column;
+
+}
+
+.title-group h2 {
+
+  margin: 0;
+
+  font-size: 1.25rem;
+
+  font-weight: 700;
+
+  color: white;
+
+}
+
+.title-group span {
+
+  margin-top: 4px;
+
+  color: rgba(255,255,255,.60);
+
+  font-size: .84rem;
+
+}
+
+/* ========================= */
+
+.center {
+
+  flex: 1;
+
+  display: flex;
+
+  justify-content: center;
+
+  padding: 0 40px;
+
+}
+
+.search {
+
+  width: 100%;
+  max-width: 500px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 12px 18px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.06);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  transition: .3s;
+
+}
+
+.search:hover {
+
+  background: rgba(255,255,255,.10);
+
+}
+
+.search:focus-within {
+
+  border-color: rgba(77,163,255,.40);
+
+  box-shadow:
+    0 0 0 4px rgba(77,163,255,.10);
+
+}
+
+.search-icon {
+
+  color: rgba(255,255,255,.55);
+
+  font-size: 18px;
+
+}
+
+.search input {
+
+  flex: 1;
+
+  background: transparent;
+
+  border: none;
+
+  outline: none;
+
+  color: white;
+
+  font-size: .95rem;
+
+}
+
+.search input::placeholder {
+
+  color: rgba(255,255,255,.42);
+
+}
+
+/* ========================= */
+
+.right {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+}
+
+/* ========================= */
+
+.status {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  padding: 10px 16px;
+
+  border-radius: 999px;
+
+  background: rgba(48,209,88,.12);
+
+  border: 1px solid rgba(48,209,88,.22);
+
+  color: white;
+
+  font-size: .88rem;
+
+}
+
+.status-dot {
+
+  width: 10px;
+  height: 10px;
+
+  border-radius: 50%;
+
+  background: #30D158;
+
+  box-shadow:
+    0 0 12px #30D158;
+
+  animation: pulse 2s infinite;
+
+}
+
+/* ========================= */
+
+.date {
+
+  color: rgba(255,255,255,.65);
+
+  font-size: .88rem;
+
+  white-space: nowrap;
+
+}
+
+/* ========================= */
+
+.notification {
+
+  width: 48px;
+  height: 48px;
+
+  border-radius: 50%;
+
+  border: none;
+
+  cursor: pointer;
+
+  font-size: 18px;
+
+  color: white;
+
+  background: rgba(255,255,255,.08);
+
+  transition: .25s;
+
+}
+
+.notification:hover {
+
+  transform: translateY(-2px);
+
+  background: rgba(255,255,255,.14);
+
+}
+
+/* ========================= */
+
+.profile {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  padding: 8px 16px;
+
+  border-radius: 999px;
+
+  background: rgba(255,255,255,.06);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+}
+
+.avatar {
+
+  width: 42px;
+  height: 42px;
+
+  border-radius: 50%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: 700;
+
+  background:
+    linear-gradient(
+      135deg,
+      #4DA3FF,
+      #2563EB
+    );
+
+  color: white;
+
+}
+
+.profile strong {
+
+  display: block;
+
+  font-size: .9rem;
+
+}
+
+.profile small {
+
+  color: rgba(255,255,255,.55);
+
+}
+
+/* ========================= */
+
+@keyframes pulse {
+
+  0% {
+
+    transform: scale(.9);
+
+    opacity: .7;
+
+  }
+
+  50% {
+
+    transform: scale(1.2);
+
+    opacity: 1;
+
+  }
+
+  100% {
+
+    transform: scale(.9);
+
+    opacity: .7;
+
+  }
+
+}
+
+/* ========================= */
+
+@media (max-width: 1200px) {
+
+  .center {
+
+    display: none;
+
+  }
+
+}
+
+@media (max-width: 992px) {
+
+  .navbar {
+
+    left: 128px;
+
+  }
+
+  .date,
+  .profile div {
+
+    display: none;
+
+  }
+
+}
