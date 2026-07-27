@@ -32,9 +32,6 @@ class PredictiveRiskService:
         db: Session
     ) -> PredictiveRiskResponse:
 
-        # Build the latest Digital Twin snapshot
-        digital_twin_service.build_twin(db)
-
         snapshots_db = (
             db.query(DigitalTwinSnapshotDB)
             .order_by(

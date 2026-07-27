@@ -83,6 +83,8 @@ class KnowledgeGraphService:
 
         self.graph = digital_twin_service.graph
 
+        self.add_network_entry_points()
+
         self.add_vulnerabilities()
 
         self.add_attack_techniques()
@@ -98,6 +100,63 @@ class KnowledgeGraphService:
             "edges": self.graph.number_of_edges(),
 
         }
+
+    def add_network_entry_points(self):
+
+        self.graph.add_node(
+
+            "INTERNET",
+
+            node_type="external",
+
+            label="Internet",
+
+        )
+
+        asset_nodes = [
+
+            node
+
+            for node, attributes
+
+            in self.graph.nodes(data=True)
+
+            if attributes.get("node_type") == "asset"
+
+        ]
+
+        for asset in asset_nodes:
+
+            asset_data = self.graph.nodes[asset]
+
+            exposure = str(
+
+                asset_data.get(
+                    "network_exposure",
+                    ""
+                )
+
+            ).lower()
+
+            if exposure in [
+
+                "public",
+
+                "internet",
+
+                "external",
+
+            ]:
+
+                self.graph.add_edge(
+
+                    "INTERNET",
+
+                    asset,
+
+                    relationship="NETWORK_ACCESS",
+
+                )
 
     def add_vulnerabilities(self):
 
