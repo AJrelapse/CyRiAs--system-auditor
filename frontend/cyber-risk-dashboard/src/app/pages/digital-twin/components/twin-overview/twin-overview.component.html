@@ -1,0 +1,171 @@
+<div *ngIf="twin; else loading" class="dashboard">
+
+    <!-- Executive Summary -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <h4>Total Nodes</h4>
+
+            <h2>{{ totalNodes }}</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Relationships</h4>
+
+            <h2>{{ totalEdges }}</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Assets</h4>
+
+            <h2>{{ assets }}</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Identities</h4>
+
+            <h2>{{ identities }}</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Cloud Identities</h4>
+
+            <h2>{{ cloudIdentities }}</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Critical Assets</h4>
+
+            <h2>{{ criticalAssets }}</h2>
+
+        </div>
+
+    </div>
+
+    <!-- Digital Twin Graph -->
+
+    <app-digital-twin-graph
+        [twin]="twin">
+    </app-digital-twin-graph>
+
+    <!-- Bottom Summary -->
+
+    <div class="bottom-grid">
+
+        <!-- Infrastructure -->
+
+        <div class="info-card">
+
+            <h3>Infrastructure Overview</h3>
+
+            <table>
+
+                <tr>
+
+                    <td>Total Assets</td>
+
+                    <td>{{ assets }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Identities</td>
+
+                    <td>{{ identities }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Cloud Identities</td>
+
+                    <td>{{ cloudIdentities }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Relationships</td>
+
+                    <td>{{ totalEdges }}</td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+        <!-- Security -->
+
+        <div class="info-card">
+
+            <h3>Security Overview</h3>
+
+            <table>
+
+                <tr>
+
+                    <td>Critical Assets</td>
+
+                    <td>{{ criticalAssets }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Known Vulnerabilities</td>
+
+                    <td>{{ vulnerabilities }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Security Controls</td>
+
+                    <td>{{ securityControls }}</td>
+
+                </tr>
+
+                <tr>
+
+                    <td>Topology Status</td>
+
+                    <td class="healthy">
+
+                        Healthy
+
+                    </td>
+
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #loading>
+
+    <div class="empty-state">
+
+        Building Digital Twin...
+
+    </div>
+
+</ng-template>
