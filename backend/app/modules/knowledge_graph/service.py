@@ -315,5 +315,52 @@ class KnowledgeGraphService:
 
                 )
 
+    def get_graph(self):
+        graph = digital_twin_service.graph
+
+        nodes = []
+
+        for node_id, attributes in graph.nodes(data=True):
+
+            nodes.append({
+
+                "id": node_id,
+
+                "label": attributes.get(
+                    "label",
+                    str(node_id)
+                ),
+
+                "type": attributes.get(
+                    "node_type",
+                    "unknown"
+                )
+
+            })
+
+        edges = []
+
+        for source, target, attributes in graph.edges(data=True):
+
+            edges.append({
+
+                "source": source,
+
+                "target": target,
+
+                "relationship": attributes.get(
+                    "relationship",
+                    ""
+                )
+
+            })
+
+        return {
+
+            "nodes": nodes,
+
+            "edges": edges
+
+        }
 
 knowledge_graph_service = KnowledgeGraphService()

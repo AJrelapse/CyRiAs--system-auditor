@@ -14,3 +14,9 @@ router = APIRouter(
 def build_knowledge_graph():
 
     return knowledge_graph_service.build()
+
+
+@router.get("/graph")
+def get_knowledge_graph():
+
+    return knowledge_graph_service.get_graph()
