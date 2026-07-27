@@ -1,7 +1,7 @@
 from datetime import datetime
 from uuid import uuid4
 
-from sqlalchemy import DateTime, String
+from sqlalchemy import DateTime, String, Float, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.database import Base
@@ -472,4 +472,247 @@ class IdentityDeltaEventDB(Base):
         DateTime,
         default=datetime.utcnow,
         index=True,
+    )
+
+class DigitalTwinSnapshotDB(Base):
+
+    __tablename__ = "digital_twin_snapshots"
+
+    snapshot_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+        default=lambda: str(uuid4()),
+    )
+
+    node_count: Mapped[int] = mapped_column(
+        nullable=False,
+    )
+
+    edge_count: Mapped[int] = mapped_column(
+        nullable=False,
+    )
+
+    graph_data: Mapped[str] = mapped_column(
+        String,
+        nullable=False,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        index=True,
+    )
+
+
+class DigitalTwinChangeDB(Base):
+
+    __tablename__ = "digital_twin_changes"
+
+    change_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+        default=lambda: str(uuid4()),
+    )
+
+    entity_id: Mapped[str] = mapped_column(
+        String(150),
+        nullable=False,
+        index=True,
+    )
+
+    entity_type: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    change_type: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+    )
+
+    source_module: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    details: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+    )
+
+class TwinProcessedEventDB(Base):
+
+    __tablename__ = "twin_processed_events"
+
+    processed_event_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+        default=lambda: str(uuid4()),
+    )
+
+    source_event_id: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+        index=True,
+    )
+
+    source_module: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+        index=True,
+    )
+
+    processed_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+    )
+
+class ConfigurationDeltaEventDB(Base):
+
+    __tablename__ = "configuration_delta_events"
+
+    event_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+        default=lambda: str(uuid4()),
+    )
+
+    asset_id: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+        index=True,
+    )
+
+    change_type: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
+    )
+
+    changed_fields: Mapped[str] = mapped_column(
+        String,
+        default="[]",
+    )
+
+    previous_state: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    current_state: Mapped[str | None] = mapped_column(
+        String,
+        nullable=True,
+    )
+
+    created_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+        index=True,
+    )
+
+class VulnerabilityDB(Base):
+
+    __tablename__ = "vulnerabilities"
+
+    vulnerability_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+    )
+
+    cve_id: Mapped[str] = mapped_column(
+        String(100),
+        unique=True,
+        nullable=False,
+    )
+
+    title: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+    )
+
+    description: Mapped[str] = mapped_column(
+        Text,
+        nullable=False,
+    )
+
+    severity: Mapped[str] = mapped_column(
+        String(20),
+        nullable=False,
+    )
+
+    cvss_score: Mapped[float] = mapped_column(
+        Float,
+        nullable=False,
+    )
+
+    affected_products: Mapped[str] = mapped_column(
+        Text,
+        default="[]",
+    )
+
+    published_at: Mapped[datetime] = mapped_column(
+        DateTime,
+        default=datetime.utcnow,
+    )
+
+class ThreatTechniqueDB(Base):
+
+    __tablename__ = "threat_techniques"
+
+    technique_id: Mapped[str] = mapped_column(
+        String(100),
+        primary_key=True,
+    )
+
+    mitre_id: Mapped[str] = mapped_column(
+        String(50),
+        unique=True,
+        nullable=False,
+    )
+
+    name: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+    )
+    tactic: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    description: Mapped[str] = mapped_column(
+        Text,
+        nullable=False,
+    )
+
+class SecurityControlDB(Base):
+
+    __tablename__ = "security_controls"
+
+    control_id: Mapped[str] = mapped_column(
+       String(100),
+        primary_key=True,
+    )
+
+    name: Mapped[str] = mapped_column(
+        String(255),
+        nullable=False,
+    )
+
+    category: Mapped[str] = mapped_column(
+        String(100),
+        nullable=False,
+    )
+
+    description: Mapped[str] = mapped_column(
+        Text,
+        nullable=False,
+    )
+
+    implementation_level: Mapped[str] = mapped_column(
+        String(50),
+        nullable=False,
     )

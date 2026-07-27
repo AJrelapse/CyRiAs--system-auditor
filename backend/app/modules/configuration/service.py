@@ -5,6 +5,7 @@ from sqlalchemy.orm import Session
 from app.db.models import (
     AssetDB,
     AssetConfigurationDB,
+    ConfigurationDeltaEventDB,
 )
 
 from .mock_provider import (
@@ -18,6 +19,48 @@ from .models import (
 
 
 class ConfigurationCollectionService:
+    def create_delta_event(
+        self,
+        db: Session,
+        asset_id: str,
+        change_type: str,
+        changed_fields: list[str],
+        previous_state: dict | None,
+        current_state: dict | None,
+    ):
+
+        event = ConfigurationDeltaEventDB(
+
+            asset_id=asset_id,
+
+            change_type=change_type,
+
+            changed_fields=json.dumps(
+                changed_fields
+            ),
+
+            previous_state=(
+                json.dumps(
+                    previous_state,
+                    default=str,
+                )
+                if previous_state
+                is not None
+                else None
+            ),
+
+            current_state=(
+                json.dumps(
+                    current_state,
+                    default=str,
+                )
+                if current_state
+                is not None
+                else None
+            ),
+        )
+
+        db.add(event)
 
     def collect_configurations(
         self,
@@ -123,16 +166,30 @@ class ConfigurationCollectionService:
             if stored is None:
 
                 stored = AssetConfigurationDB(
-
-                    asset_id=(
-                        configuration.asset_id
-                    ),
-
+                    asset_id=configuration.asset_id,
                     **serialized_values,
                 )
 
-
                 db.add(stored)
+
+
+                self.create_delta_event(
+
+                    db=db,
+
+                    asset_id=configuration.asset_id,
+
+                    change_type="CREATED",
+
+                    changed_fields=list(
+                        serialized_values.keys()
+                    ),
+
+                    previous_state=None,
+
+                    current_state=serialized_values,
+                )
+
 
                 added.append(
                     configuration.asset_id
@@ -145,7 +202,20 @@ class ConfigurationCollectionService:
             # Detect configuration delta
             # -------------------------
 
-            changed = False
+            previous_state = {
+
+                field_name:
+                    getattr(
+                        stored,
+                        field_name,
+                    )
+
+                for field_name
+                in serialized_values
+            }
+
+
+            changed_fields = []
 
 
             for (
@@ -167,10 +237,36 @@ class ConfigurationCollectionService:
                         new_value,
                     )
 
-                    changed = True
+                    changed_fields.append(
+                        field_name
+                    )
 
 
-            if changed:
+            if changed_fields:
+
+                self.create_delta_event(
+
+                    db=db,
+
+                    asset_id=(
+                        configuration.asset_id
+                    ),
+
+                    change_type="MODIFIED",
+
+                    changed_fields=(
+                        changed_fields
+                    ),
+
+                    previous_state=(
+                        previous_state
+                    ),
+
+                    current_state=(
+                        serialized_values
+                    ),
+                )
+
 
                 updated.append(
                     configuration.asset_id

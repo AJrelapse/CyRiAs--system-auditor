@@ -39,13 +39,11 @@ def get_mock_identities() -> list[Identity]:
             effective_permissions=[
                 "customer_data:read",
                 "financial_reports:read",
-                "database:admin",
             ],
 
             accessible_assets=[
                 "END-001",
                 "APP-001",
-                "DB-001",
             ],
         ),
 
