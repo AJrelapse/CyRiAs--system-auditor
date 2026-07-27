@@ -1,0 +1,95 @@
+.table-card{
+
+    background:#1E293B;
+
+    border:1px solid #334155;
+
+    border-radius:16px;
+
+    padding:20px;
+
+    margin-top:20px;
+
+}
+
+h3{
+
+    color:white;
+
+    margin-bottom:20px;
+
+}
+
+table{
+
+    width:100%;
+
+    border-collapse:collapse;
+
+}
+
+th{
+
+    text-align:left;
+
+    color:#94A3B8;
+
+    padding:15px;
+
+    border-bottom:1px solid #334155;
+
+}
+
+td{
+
+    padding:15px;
+
+    color:white;
+
+    border-bottom:1px solid #334155;
+
+}
+
+.badge{
+
+    padding:6px 12px;
+
+    border-radius:20px;
+
+    font-size:12px;
+
+    font-weight:600;
+
+}
+
+.low{
+
+    background:#10B981;
+
+    color:white;
+
+}
+
+.medium{
+
+    background:#F59E0B;
+
+    color:white;
+
+}
+
+.high{
+
+    background:#EF4444;
+
+    color:white;
+
+}
+
+.critical{
+
+    background:#7F1D1D;
+
+    color:white;
+
+}

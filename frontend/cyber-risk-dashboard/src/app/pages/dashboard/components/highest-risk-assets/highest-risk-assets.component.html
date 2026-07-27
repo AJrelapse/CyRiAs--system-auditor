@@ -1,0 +1,51 @@
+<div class="table-card">
+
+    <h3>Highest Risk Assets</h3>
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Asset</th>
+                <th>Type</th>
+                <th>Risk</th>
+                <th>Attack</th>
+                <th>Level</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let asset of assessments">
+
+                <td>{{asset.asset_name}}</td>
+
+                <td>{{asset.asset_type}}</td>
+
+                <td>{{asset.overall_score}}</td>
+
+                <td>{{asset.attack_path_score}}</td>
+
+                <td>
+
+                    <span
+                        class="badge"
+                        [ngClass]="asset.risk_level.toLowerCase()">
+
+                        {{asset.risk_level}}
+
+                    </span>
+
+                </td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
