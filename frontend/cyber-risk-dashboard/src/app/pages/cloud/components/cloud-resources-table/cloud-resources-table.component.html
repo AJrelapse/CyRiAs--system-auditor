@@ -1,0 +1,45 @@
+<div class="table-card">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Resource ID</th>
+                <th>Name</th>
+                <th>Asset</th>
+                <th>Type</th>
+                <th>Provider</th>
+                <th>Region</th>
+                <th>Status</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let resource of resources">
+
+                <td>{{ resource.resource_id }}</td>
+
+                <td>{{ resource.name }}</td>
+
+                <td>{{ resource.asset_id || '-' }}</td>
+
+                <td>{{ resource.resource_type }}</td>
+
+                <td>{{ resource.provider }}</td>
+
+                <td>{{ resource.region }}</td>
+
+                <td>{{ resource.status }}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>

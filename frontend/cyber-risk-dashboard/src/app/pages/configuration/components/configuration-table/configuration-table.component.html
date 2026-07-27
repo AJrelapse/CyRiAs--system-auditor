@@ -1,0 +1,45 @@
+<div class="table-card">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Asset</th>
+                <th>Hostname</th>
+                <th>OS</th>
+                <th>Version</th>
+                <th>Patch Level</th>
+                <th>Last Patch</th>
+                <th>Open Ports</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let config of configurations">
+
+                <td>{{ config.asset_id }}</td>
+
+                <td>{{ config.hostname }}</td>
+
+                <td>{{ config.operating_system }}</td>
+
+                <td>{{ config.os_version }}</td>
+
+                <td>{{ config.patch_level }}</td>
+
+                <td>{{ config.last_patch_date | date:'mediumDate' }}</td>
+
+                <td>{{ config.open_ports }}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
