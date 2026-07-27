@@ -1,0 +1,45 @@
+<div class="table-card">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>ID</th>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Email</th>
+                <th>Department</th>
+                <th>Status</th>
+                <th>Role</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let identity of identities">
+
+                <td>{{ identity.identity_id }}</td>
+
+                <td>{{ identity.name }}</td>
+
+                <td>{{ identity.identity_type }}</td>
+
+                <td>{{ identity.email || '-' }}</td>
+
+                <td>{{ identity.department }}</td>
+
+                <td>{{ identity.status }}</td>
+
+                <td>{{ identity.roles }}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
