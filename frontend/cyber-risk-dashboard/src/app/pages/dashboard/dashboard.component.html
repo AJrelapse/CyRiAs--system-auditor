@@ -1,0 +1,81 @@
+<h1 class="title">
+
+  Cyber Risk Dashboard
+
+</h1>
+
+<div class="cards">
+
+  <app-stat-card
+
+    title="Total Assets"
+
+    [value]="totalAssets"
+
+    subtitle="Assets monitored"
+
+    icon="computer"
+
+    color="#2563EB">
+
+  </app-stat-card>
+
+  <app-stat-card
+
+    title="Critical / High Risk"
+
+    [value]="criticalAssets"
+
+    subtitle="Immediate attention"
+
+    icon="warning"
+
+    color="#EF4444">
+
+  </app-stat-card>
+
+  <app-stat-card
+
+    title="Average Risk"
+
+    [value]="averageRisk"
+
+    subtitle="Current environment"
+
+    icon="shield"
+
+    color="#10B981">
+
+  </app-stat-card>
+
+  <app-stat-card
+
+    title="Highest Risk Asset"
+
+    [value]="highestRiskAsset"
+
+    subtitle="Most vulnerable"
+
+    icon="security"
+
+    color="#F59E0B">
+
+  </app-stat-card>
+
+</div>
+
+<div class="dashboard-grid">
+
+    <app-risk-distribution-chart
+        [assessments]="riskAssessments">
+    </app-risk-distribution-chart>
+
+    <app-risk-trend-chart
+        [assessments]="riskAssessments">
+    </app-risk-trend-chart>
+
+</div>
+
+<app-highest-risk-assets
+    [assessments]="riskAssessments">
+</app-highest-risk-assets>
