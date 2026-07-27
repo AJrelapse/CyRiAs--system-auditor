@@ -1,0 +1,33 @@
+<div class="cards" *ngIf="summary">
+
+    <div class="card">
+        <h3>Total Events</h3>
+        <h1>{{ summary.total_events }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Critical</h3>
+        <h1>{{ summary.critical_events }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>High</h3>
+        <h1>{{ summary.high_events }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Medium</h3>
+        <h1>{{ summary.medium_events }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Failed Logins</h3>
+        <h1>{{ summary.failed_authentications }}</h1>
+    </div>
+
+    <div class="card">
+        <h3>Affected Assets</h3>
+        <h1>{{ summary.affected_assets.length }}</h1>
+    </div>
+
+</div>

@@ -1,0 +1,164 @@
+<div
+  class="dashboard"
+  *ngIf="prediction"
+>
+
+  <div class="summary-grid">
+
+    <div class="summary-card">
+
+      <h4>Total Assets</h4>
+
+      <h2>{{ prediction.total_assets }}</h2>
+
+    </div>
+
+    <div class="summary-card">
+
+      <h4>Average Risk</h4>
+
+      <h2>{{ averageRisk | number:'1.0-0' }}</h2>
+
+    </div>
+
+    <div class="summary-card">
+
+      <h4>Highest Risk</h4>
+
+      <h2>{{ highestAsset?.asset_id }}</h2>
+
+      <span class="risk high">
+        {{ highestAsset?.predicted_score }}
+      </span>
+
+    </div>
+
+    <div class="summary-card">
+
+      <h4>Prediction Window</h4>
+
+      <h2>{{ prediction.predictions[0]?.prediction_window }}</h2>
+
+    </div>
+
+  </div>
+
+  <div class="distribution">
+
+    <div class="distribution-card critical">
+
+      <h5>Critical</h5>
+
+      <h2>{{ critical }}</h2>
+
+    </div>
+
+    <div class="distribution-card high">
+
+      <h5>High</h5>
+
+      <h2>{{ high }}</h2>
+
+    </div>
+
+    <div class="distribution-card medium">
+
+      <h5>Medium</h5>
+
+      <h2>{{ medium }}</h2>
+
+    </div>
+
+    <div class="distribution-card low">
+
+      <h5>Low</h5>
+
+      <h2>{{ low }}</h2>
+
+    </div>
+
+  </div>
+
+  <div class="table-card">
+
+    <table>
+
+      <thead>
+
+      <tr>
+
+        <th>Asset</th>
+
+        <th>Current</th>
+
+        <th>Predicted</th>
+
+        <th>Confidence</th>
+
+        <th>Risk</th>
+
+      </tr>
+
+      </thead>
+
+      <tbody>
+
+      <tr
+        *ngFor="let asset of prediction.predictions"
+      >
+
+        <td>
+
+          <strong>{{ asset.asset_id }}</strong>
+
+        </td>
+
+        <td>
+
+          {{ asset.current_score }}
+
+        </td>
+
+        <td>
+
+          <div class="progress">
+
+            <div
+              class="fill"
+              [style.width.%]="asset.predicted_score"
+            ></div>
+
+          </div>
+
+          {{ asset.predicted_score }}
+
+        </td>
+
+        <td>
+
+          {{ asset.confidence * 100 }}%
+
+        </td>
+
+        <td>
+
+          <span
+            class="badge"
+            [ngClass]="badge(asset.risk_level)"
+          >
+
+            {{ asset.risk_level }}
+
+          </span>
+
+        </td>
+
+      </tr>
+
+      </tbody>
+
+    </table>
+
+  </div>
+
+</div>

@@ -1,0 +1,23 @@
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1E293B;
+    border:1px solid #334155;
+    border-radius:16px;
+    padding:24px;
+}
+
+.card h3{
+    color:#94A3B8;
+    margin-bottom:15px;
+}
+
+.card h1{
+    color:white;
+    font-size:36px;
+    margin:0;
+}
