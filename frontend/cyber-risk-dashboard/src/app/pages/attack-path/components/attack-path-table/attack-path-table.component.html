@@ -1,0 +1,228 @@
+<div *ngIf="paths.length; else noData" class="dashboard">
+
+    <!-- Executive Summary -->
+
+    <div class="summary-grid">
+
+        <div class="summary-card">
+
+            <h4>Total Attack Paths</h4>
+
+            <h2>{{ totalPaths }}</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Highest Risk Score</h4>
+
+            <h2>{{ highestRisk | number:'1.0-1' }}</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Target Assets</h4>
+
+            <h2>{{ uniqueTargets }}</h2>
+
+        </div>
+
+        <div class="summary-card">
+
+            <h4>Critical Vulnerabilities</h4>
+
+            <h2>{{ criticalCVEs }}</h2>
+
+        </div>
+
+    </div>
+
+    <!-- Attack Path Cards -->
+
+    <div class="path-list">
+
+        <div
+            class="path-card"
+            *ngFor="let path of paths">
+
+            <!-- Header -->
+
+            <div class="card-header">
+
+                <div>
+
+                    <h3>{{ path.attack_id }}</h3>
+
+                    <p>
+                        {{ path.entry_point }}
+                        →
+                        {{ path.target_asset }}
+                    </p>
+
+                </div>
+
+                <span
+                    class="badge"
+                    [ngClass]="badgeClass(path.severity)">
+
+                    {{ path.severity }}
+
+                </span>
+
+            </div>
+
+            <!-- Risk -->
+
+            <div class="risk-section">
+
+                <div class="risk-title">
+
+                    <span>Risk Score</span>
+
+                    <strong>{{ path.risk_score }}</strong>
+
+                </div>
+
+                <div class="progress">
+
+                    <div
+                        class="fill"
+                        [style.width.%]="riskWidth(path.risk_score)">
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Attack Chain -->
+
+            <div class="section">
+
+                <h4>Attack Chain</h4>
+
+                <div class="chain">
+
+                    <ng-container
+                        *ngFor="
+                            let step of path.path;
+                            let last = last
+                        ">
+
+                        <div class="node">
+
+                            {{ step }}
+
+                        </div>
+
+                        <div
+                            class="arrow"
+                            *ngIf="!last">
+
+                            →
+
+                        </div>
+
+                    </ng-container>
+
+                </div>
+
+            </div>
+
+            <!-- Vulnerabilities -->
+
+            <div class="section">
+
+                <h4>Vulnerabilities</h4>
+
+                <div class="chips">
+
+                    <div
+                        class="chip critical"
+                        *ngFor="
+                            let vulnerability of path.vulnerabilities
+                        ">
+
+                        <strong>{{ vulnerability.cve }}</strong>
+
+                        <span>
+
+                            CVSS {{ vulnerability.cvss }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- MITRE Techniques -->
+
+            <div class="section">
+
+                <h4>MITRE ATT&CK Techniques</h4>
+
+                <div class="chips">
+
+                    <div
+                        class="chip blue"
+                        *ngFor="
+                            let technique of uniqueTechniques(path)
+                        ">
+
+                        <strong>
+
+                            {{ technique.technique_id }}
+
+                        </strong>
+
+                        <span>
+
+                            {{ technique.name }}
+
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <!-- Missing Controls -->
+
+            <div class="section">
+
+                <h4>Missing Security Controls</h4>
+
+                <div class="controls">
+
+                    <span
+                        class="control"
+                        *ngFor="
+                            let control of uniqueControls(path)
+                        ">
+
+                        {{ control }}
+
+                    </span>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<ng-template #noData>
+
+    <div class="empty-state">
+
+        No attack paths generated.
+
+    </div>
+
+</ng-template>
