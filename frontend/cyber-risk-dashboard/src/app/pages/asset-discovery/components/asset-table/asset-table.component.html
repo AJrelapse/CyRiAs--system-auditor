@@ -1,0 +1,35 @@
+<div class="table-card">
+
+    <table>
+
+        <thead>
+
+            <tr>
+
+                <th>Name</th>
+                <th>Type</th>
+                <th>IP Address</th>
+                <th>OS</th>
+                <th>Criticality</th>
+
+            </tr>
+
+        </thead>
+
+        <tbody>
+
+            <tr *ngFor="let asset of assets">
+
+                <td>{{asset.asset_name}}</td>
+                <td>{{asset.asset_type}}</td>
+                <td>{{asset.ip_address}}</td>
+                <td>{{asset.operating_system}}</td>
+                <td>{{asset.criticality}}</td>
+
+            </tr>
+
+        </tbody>
+
+    </table>
+
+</div>
