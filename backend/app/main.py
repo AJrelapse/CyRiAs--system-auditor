@@ -23,6 +23,12 @@ from app.modules.knowledge_graph.router import (
     router as knowledge_graph_router,
 )
 
+from app.modules.attack_path.router import (
+    router as attack_path_router,
+)
+
+from app.modules.predictive_risk.router import router as predictive_risk_router
+
 from app.db.database import Base, engine
 from app.db import models
 
@@ -55,6 +61,10 @@ app.include_router(
 app.include_router(
     knowledge_graph_router
 )
+app.include_router(
+    attack_path_router
+)
+app.include_router(predictive_risk_router)
 
 @app.get("/")
 def root():
