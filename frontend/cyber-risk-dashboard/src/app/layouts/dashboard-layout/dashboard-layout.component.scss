@@ -1,0 +1,86 @@
+.workspace {
+
+  min-height: 100vh;
+
+}
+
+/* ========================= */
+
+.content-shell {
+
+  margin-left: 325px;
+
+  min-height: 100vh;
+
+}
+
+/* ========================= */
+
+.page-shell {
+
+  padding:
+
+      122px
+      24px
+      24px
+      24px;
+
+}
+
+/* ========================= */
+
+.page-container {
+
+  min-height: calc(100vh - 150px);
+
+  border-radius: 30px;
+
+  background:
+
+      rgba(255,255,255,.04);
+
+  backdrop-filter: blur(20px);
+
+  -webkit-backdrop-filter: blur(20px);
+
+  border: 1px solid rgba(255,255,255,.08);
+
+  box-shadow:
+
+      0 20px 60px rgba(0,0,0,.20);
+
+  padding: 30px;
+
+}
+
+/* ========================= */
+
+@media (max-width: 992px) {
+
+  .content-shell {
+
+    margin-left: 128px;
+
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  .content-shell {
+
+    margin-left: 0;
+
+  }
+
+  .page-shell {
+
+    padding-top: 110px;
+
+    padding-left: 15px;
+
+    padding-right: 15px;
+
+  }
+
+}
