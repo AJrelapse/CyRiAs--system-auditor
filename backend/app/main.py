@@ -30,7 +30,7 @@ from app.modules.risk_assessment.router import (
     router as risk_assessment_router,
 )
 
-
+from fastapi.middleware.cors import CORSMiddleware
 from app.modules.predictive_risk.router import router as predictive_risk_router
 
 from app.db.database import Base, engine
@@ -87,3 +87,12 @@ def health_check():
         "status": "healthy",
     }
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=[
+        "http://localhost:4200"
+    ],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
